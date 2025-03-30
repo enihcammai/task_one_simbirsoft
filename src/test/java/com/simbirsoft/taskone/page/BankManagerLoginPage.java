@@ -1,0 +1,99 @@
+package com.simbirsoft.taskone.page;
+
+import com.simbirsoft.taskone.dto.Customer;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class BankManagerLoginPage {
+
+    public WebDriver driver;
+
+    private final static String CUSTOMER_TABLE_ROWS_XPATH = "//tbody/tr";
+    private final static String CUSTOMER_FIRST_NAME_CELL_XPATH = "td[1]";
+    private final static String CUSTOMER_DELETE_BUTTON_XPATH = "td[5]/button";
+    private final static String CUSTOMER_SORT_LINK_XPATH = "/html/body/div/div/div[2]/div/div[2]/div/div/table/thead/tr/td[1]/a";
+    private final static String CUSTOMER_FIRST_NAME_COLUMN_XPATH = "//tbody/tr/td[1]";
+
+
+    public BankManagerLoginPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+    }
+
+
+    @FindBy(css = "input[placeholder='First Name']")
+    private WebElement firstNameField;
+
+    @FindBy(css = "input[placeholder='Last Name']")
+    private WebElement lastNameField;
+
+    @FindBy(css = "input[placeholder='Post Code']")
+    private WebElement postCodeField;
+
+    @FindBy(css = "button[type='submit']")
+    private WebElement addCustomerBtn;
+
+    @FindBy(css = "button[ng-click='addCust()']")
+    private WebElement navAddCustomerBtn;
+
+    @FindBy(css = "button[ng-click='showCust()']")
+    private WebElement showCustomerBtn;
+
+
+    public void inputFirstName(String firstName) {
+        firstNameField.sendKeys(firstName);
+    }
+
+    public void inputLastName(String lastName) {
+        lastNameField.sendKeys(lastName);
+    }
+
+    public void inputPostCode(String postCode) {
+        postCodeField.sendKeys(postCode);
+    }
+
+    public void clickAddCustomerBtn() {
+        addCustomerBtn.submit();
+    }
+
+    public List<Customer> fillCustomerList() {
+        List<WebElement> customerList = driver.findElements(By.xpath(CUSTOMER_TABLE_ROWS_XPATH));
+
+        return customerList.stream()
+                .map(e -> new Customer(e.findElement(By.xpath(CUSTOMER_FIRST_NAME_CELL_XPATH)).getText()))
+                .toList();
+    }
+
+    public boolean removeCustomer(Customer customer) {
+        List<WebElement> customerList = driver.findElements(By.xpath(CUSTOMER_TABLE_ROWS_XPATH));
+        WebElement customerToRemove = customerList.stream()
+                .filter(e -> customer.getName().equals(e.findElement(By.xpath(CUSTOMER_FIRST_NAME_CELL_XPATH)).getText()))
+                .findFirst()
+                .orElse(null);
+
+        if (customerToRemove != null) {
+            customerToRemove.findElement(By.xpath(CUSTOMER_DELETE_BUTTON_XPATH)).click();
+            return true;
+        }
+
+        return false;
+    }
+
+    public List<String> firstNameSorter() {
+        driver.findElement(By.xpath(CUSTOMER_SORT_LINK_XPATH)).click();
+
+        return driver.findElements(By.xpath(CUSTOMER_FIRST_NAME_COLUMN_XPATH)).stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
+    public void showCustomerBtn() {
+        showCustomerBtn.click();
+    }
+
+}
