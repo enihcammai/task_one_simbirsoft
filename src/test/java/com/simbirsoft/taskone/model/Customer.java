@@ -1,4 +1,4 @@
-package com.simbirsoft.taskone.dto;
+package com.simbirsoft.taskone.model;
 
 
 import java.util.Objects;

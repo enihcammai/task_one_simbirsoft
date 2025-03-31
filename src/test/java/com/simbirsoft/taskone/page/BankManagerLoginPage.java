@@ -1,11 +1,14 @@
 package com.simbirsoft.taskone.page;
 
-import com.simbirsoft.taskone.dto.Customer;
+import com.simbirsoft.taskone.model.Customer;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,15 +19,8 @@ public class BankManagerLoginPage {
     private final static String CUSTOMER_TABLE_ROWS_XPATH = "//tbody/tr";
     private final static String CUSTOMER_FIRST_NAME_CELL_XPATH = "td[1]";
     private final static String CUSTOMER_DELETE_BUTTON_XPATH = "td[5]/button";
-    private final static String CUSTOMER_SORT_LINK_XPATH = "/html/body/div/div/div[2]/div/div[2]/div/div/table/thead/tr/td[1]/a";
+    private final static String CUSTOMER_SORT_LINK_XPATH = "//td[1]/a"; //Спросить про это
     private final static String CUSTOMER_FIRST_NAME_COLUMN_XPATH = "//tbody/tr/td[1]";
-
-
-    public BankManagerLoginPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
-    }
-
 
     @FindBy(css = "input[placeholder='First Name']")
     private WebElement firstNameField;
@@ -36,31 +32,38 @@ public class BankManagerLoginPage {
     private WebElement postCodeField;
 
     @FindBy(css = "button[type='submit']")
-    private WebElement addCustomerBtn;
-
-    @FindBy(css = "button[ng-click='addCust()']")
-    private WebElement navAddCustomerBtn;
+    private WebElement btnAddCustomer;
 
     @FindBy(css = "button[ng-click='showCust()']")
-    private WebElement showCustomerBtn;
+    private WebElement btnShowCustomer;
 
 
+    public BankManagerLoginPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+        this.driver = driver;
+    }
+
+    @Step
     public void inputFirstName(String firstName) {
         firstNameField.sendKeys(firstName);
     }
 
+    @Step
     public void inputLastName(String lastName) {
         lastNameField.sendKeys(lastName);
     }
 
+    @Step
     public void inputPostCode(String postCode) {
         postCodeField.sendKeys(postCode);
     }
 
-    public void clickAddCustomerBtn() {
-        addCustomerBtn.submit();
+    @Step
+    public void clickBtnAddCustomer() {
+        btnAddCustomer.submit();
     }
 
+    @Step
     public List<Customer> fillCustomerList() {
         List<WebElement> customerList = driver.findElements(By.xpath(CUSTOMER_TABLE_ROWS_XPATH));
 
@@ -69,6 +72,7 @@ public class BankManagerLoginPage {
                 .toList();
     }
 
+    @Step
     public boolean removeCustomer(Customer customer) {
         List<WebElement> customerList = driver.findElements(By.xpath(CUSTOMER_TABLE_ROWS_XPATH));
         WebElement customerToRemove = customerList.stream()
@@ -84,7 +88,8 @@ public class BankManagerLoginPage {
         return false;
     }
 
-    public List<String> firstNameSorter() {
+    @Step
+    public List<String> sortByFirstName() {
         driver.findElement(By.xpath(CUSTOMER_SORT_LINK_XPATH)).click();
 
         return driver.findElements(By.xpath(CUSTOMER_FIRST_NAME_COLUMN_XPATH)).stream()
@@ -92,8 +97,17 @@ public class BankManagerLoginPage {
                 .collect(Collectors.toList());
     }
 
-    public void showCustomerBtn() {
-        showCustomerBtn.click();
+    @Step
+    public List<String> getReversedOrderFirstNames() {
+        return fillCustomerList().stream()
+                .map(Customer::getName)
+                .sorted(Comparator.reverseOrder())
+                .toList();
+    }
+
+    @Step
+    public void clickBtnShowCustomer() {
+        btnShowCustomer.click();
     }
 
 }

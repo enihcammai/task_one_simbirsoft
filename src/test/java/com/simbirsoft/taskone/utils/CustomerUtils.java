@@ -9,13 +9,8 @@ public class CustomerUtils {
 
     public static String generatePostCode() {
         Random random = new Random();
-        StringBuilder postCode = new StringBuilder();
 
-        for (int i = 0; i < POST_CODE_LENGTH; i++) {
-            postCode.append(random.nextInt(10));
-        }
-
-        return postCode.toString();
+        return String.format("%0" + POST_CODE_LENGTH + "d", random.nextInt((int) Math.pow(10, POST_CODE_LENGTH)));
     }
 
     public static String generateFirstName(String postCode) {
