@@ -19,7 +19,7 @@ public class BankManagerLoginPage {
     private final static String CUSTOMER_TABLE_ROWS_XPATH = "//tbody/tr";
     private final static String CUSTOMER_FIRST_NAME_CELL_XPATH = "td[1]";
     private final static String CUSTOMER_DELETE_BUTTON_XPATH = "td[5]/button";
-    private final static String CUSTOMER_SORT_LINK_XPATH = "//td[1]/a"; //Спросить про это
+    private final static String CUSTOMER_SORT_LINK_XPATH = "//td[1]/a";
     private final static String CUSTOMER_FIRST_NAME_COLUMN_XPATH = "//tbody/tr/td[1]";
 
     @FindBy(css = "input[placeholder='First Name']")
