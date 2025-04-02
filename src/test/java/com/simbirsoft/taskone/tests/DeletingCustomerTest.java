@@ -3,36 +3,22 @@ package com.simbirsoft.taskone.tests;
 import com.simbirsoft.taskone.page.BankManagerLoginPage;
 import com.simbirsoft.taskone.model.Customer;
 import com.simbirsoft.taskone.service.CustomerService;
-import com.simbirsoft.taskone.service.PropertyService;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
+public class DeletingCustomerTest extends BaseTest {
 
-public class DeletingCustomerTest {
-
-    public static WebDriver driver;
     public static BankManagerLoginPage bankManagerLoginPage;
     public static CustomerService customerService;
 
-
     @BeforeAll
     public static void setup() {
-        System.setProperty(PropertyService.getInstance().getProperty("driver_name"), PropertyService.getInstance().getProperty("driver_path"));
-        driver = new ChromeDriver();
-        bankManagerLoginPage = new BankManagerLoginPage(driver);
+        init();
+        bankManagerLoginPage = new BankManagerLoginPage(getDriver());
         customerService = new CustomerService();
-
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        driver.get(PropertyService.getInstance().getProperty("web.url"));
     }
-
 
     @Test
     @Epic("Web Interface")
@@ -43,11 +29,5 @@ public class DeletingCustomerTest {
         bankManagerLoginPage.clickBtnShowCustomer();
         Customer customerOnDelete = customerService.getClosestToAverageCustomer(bankManagerLoginPage.fillCustomerList());
         Assertions.assertTrue(bankManagerLoginPage.removeCustomer(customerOnDelete));
-    }
-
-
-    @AfterAll
-    public static void tearDown() {
-        driver.quit();
     }
 }

@@ -1,34 +1,22 @@
 package com.simbirsoft.taskone.tests;
 
 import com.simbirsoft.taskone.page.BankManagerLoginPage;
-import com.simbirsoft.taskone.service.PropertyService;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
 import java.util.List;
 
 
-public class SortingCustomerTest {
+public class SortingCustomerTest extends BaseTest {
 
-    public static WebDriver driver;
     public static BankManagerLoginPage bankManagerLoginPage;
-
 
     @BeforeAll
     public static void setup() {
-        System.setProperty(PropertyService.getInstance().getProperty("driver_name"), PropertyService.getInstance().getProperty("driver_path"));
-        driver = new ChromeDriver();
-        bankManagerLoginPage = new BankManagerLoginPage(driver);
-
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        driver.get(PropertyService.getInstance().getProperty("web.url"));
+        init();
+        bankManagerLoginPage = new BankManagerLoginPage(getDriver());
     }
 
     @Test
@@ -43,11 +31,5 @@ public class SortingCustomerTest {
         List<String> actualList = bankManagerLoginPage.sortByFirstName();
 
         Assertions.assertLinesMatch(expectedList, actualList);
-    }
-
-
-    @AfterAll
-    public static void tearDown() {
-        driver.quit();
     }
 }

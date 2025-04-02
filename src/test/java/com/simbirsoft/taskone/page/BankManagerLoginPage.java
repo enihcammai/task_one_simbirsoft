@@ -44,23 +44,27 @@ public class BankManagerLoginPage {
     }
 
     @Step
-    public void inputFirstName(String firstName) {
+    public BankManagerLoginPage inputFirstName(String firstName) {
         firstNameField.sendKeys(firstName);
+        return this;
     }
 
     @Step
-    public void inputLastName(String lastName) {
+    public BankManagerLoginPage inputLastName(String lastName) {
         lastNameField.sendKeys(lastName);
+        return this;
     }
 
     @Step
-    public void inputPostCode(String postCode) {
+    public BankManagerLoginPage inputPostCode(String postCode) {
         postCodeField.sendKeys(postCode);
+        return this;
     }
 
     @Step
-    public void clickBtnAddCustomer() {
+    public BankManagerLoginPage clickBtnAddCustomer() {
         btnAddCustomer.submit();
+        return this;
     }
 
     @Step
@@ -109,5 +113,12 @@ public class BankManagerLoginPage {
     public void clickBtnShowCustomer() {
         btnShowCustomer.click();
     }
+
+    @Step
+    public String getAlertText(){
+        return driver.switchTo().alert().getText();
+    }
+
+
 
 }
