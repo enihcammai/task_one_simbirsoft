@@ -1,6 +1,6 @@
-package com.simbirsoft.taskone.tests;
+package com.simbirsoft.taskone.ui.tests;
 
-import com.simbirsoft.taskone.page.BankManagerLoginPage;
+import com.simbirsoft.taskone.ui.page.BankManagerLoginPage;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;

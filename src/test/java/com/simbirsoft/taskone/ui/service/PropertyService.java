@@ -1,4 +1,4 @@
-package com.simbirsoft.taskone.service;
+package com.simbirsoft.taskone.ui.service;
 
 import java.io.IOException;
 import java.io.InputStream;

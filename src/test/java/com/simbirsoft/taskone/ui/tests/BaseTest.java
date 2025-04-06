@@ -1,6 +1,6 @@
-package com.simbirsoft.taskone.tests;
+package com.simbirsoft.taskone.ui.tests;
 
-import com.simbirsoft.taskone.service.PropertyService;
+import com.simbirsoft.taskone.ui.service.PropertyService;
 import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
