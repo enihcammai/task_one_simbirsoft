@@ -1,35 +1,33 @@
 package com.simbirsoft.taskone.api.pojo;
 
+
+
+import com.google.gson.annotations.SerializedName;
 import lombok.*;
 
 import java.util.List;
 
 
-@AllArgsConstructor
-@Getter
-@Setter
+@Value
 @Builder
 public class EntityResponse {
+    int id;
+    Addition addition;
 
-    private int id;
-    private Addition addition;
+    @SerializedName("important_numbers")
+    List<Integer> importantNumbers;
+    String title;
+    boolean verified;
 
-    private List<Integer> importantNumbers;
-
-    private String title;
-    private boolean verified;
-
-    public EntityResponse() {
-    }
-
-    @Getter
-    @Setter
+    @Value
     @Builder
     public static class Addition {
-        private int id;
+        int id;
 
-        private String additionalInfo;
+        @SerializedName("additional_info")
+        String additionalInfo;
 
-        private int additionalNumber;
+        @SerializedName("additional_number")
+        int additionalNumber;
     }
 }

@@ -7,40 +7,33 @@ import lombok.*;
 
 import java.util.List;
 
-@AllArgsConstructor
-@Getter
-@Setter
+@Value
 @Builder
 public class EntityRequest {
 
     @Builder.Default
-    private Addition addition = Addition.builder().build();
+    Addition addition = Addition.builder().build();
 
     @SerializedName("important_numbers")
     @Builder.Default
-    private List<Integer> importantNumbers = List.of(42, 87, 15);
+    List<Integer> importantNumbers = List.of(42, 87, 15);
 
     @Builder.Default
-    private String title = "Заголовок сущности";
+    String title = "Заголовок сущности";
 
     @Builder.Default
-    private boolean verified = true;
+    boolean verified = true;
 
-    public EntityRequest() {
-    }
-
-    @Getter
-    @Setter
+    @Value
     @Builder
     public static class Addition {
 
         @SerializedName("additional_info")
         @Builder.Default
-        private String additionalInfo = "Дополнительные сведения";
-
+        String additionalInfo = "Дополнительные сведения";
 
         @SerializedName("additional_number")
         @Builder.Default
-        private int additionalNumber = 123;
+        int additionalNumber = 123;
     }
 }
