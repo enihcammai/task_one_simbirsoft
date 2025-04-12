@@ -1,4 +1,4 @@
-package com.simbirsoft.taskone.model;
+package com.simbirsoft.taskone.ui.model;
 
 
 import java.util.Objects;

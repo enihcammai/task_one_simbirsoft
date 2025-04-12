@@ -1,6 +1,6 @@
-package com.simbirsoft.taskone.service;
+package com.simbirsoft.taskone.ui.service;
 
-import com.simbirsoft.taskone.model.Customer;
+import com.simbirsoft.taskone.ui.model.Customer;
 
 import java.util.Comparator;
 import java.util.List;

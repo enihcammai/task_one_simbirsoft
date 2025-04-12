@@ -1,4 +1,4 @@
-package com.simbirsoft.taskone.utils;
+package com.simbirsoft.taskone.ui.utils;
 
 import java.util.Random;
 

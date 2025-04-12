@@ -1,6 +1,6 @@
-package com.simbirsoft.taskone.page;
+package com.simbirsoft.taskone.ui.page;
 
-import com.simbirsoft.taskone.model.Customer;
+import com.simbirsoft.taskone.ui.model.Customer;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
